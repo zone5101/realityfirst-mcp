@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "realityfirst-mcp"
+version = "0.1.0"
+description = "A reality-first MCP behavior layer for cross-checking agent claims, current-state precedence, and completion evidence."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "zone5101" }]
+keywords = ["mcp", "agents", "verification", "evidence", "coding-agents", "reality-first"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "mcp>=2,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+]
+
+[project.scripts]
+realityfirst-mcp = "realityfirst_mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/zone5101/realityfirst-mcp"
+Repository = "https://github.com/zone5101/realityfirst-mcp"
+Issues = "https://github.com/zone5101/realityfirst-mcp/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/realityfirst_mcp"]
+
+[tool.hatch.build]
+include = [
+  "src/realityfirst_mcp/**/*.py",
+  "src/realityfirst_mcp/policies/*.json",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

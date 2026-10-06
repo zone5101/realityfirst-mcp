@@ -1,0 +1,23 @@
+{
+  "schema": "realityfirst.core.v1",
+  "invariants": [
+    "REALITY > CLAIM",
+    "READ WIDE, LOAD NARROW",
+    "FILE EXISTS != ACTIVE",
+    "HISTORY != CURRENT",
+    "CLAIM != FACT",
+    "UNKNOWN SIDE EFFECT => NO BLIND REPLAY",
+    "USE TOOL FOR FACTS; USE MODEL FOR DECISIONS",
+    "REPLACE => PROVE => CUTOVER => RETIRE OLD"
+  ],
+  "completion_verbs": [
+    "created",
+    "written",
+    "built",
+    "deployed",
+    "passed",
+    "updated",
+    "deleted",
+    "synced"
+  ]
+}

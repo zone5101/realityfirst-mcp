@@ -1,0 +1,12 @@
+{
+  "schema": "realityfirst.precedence.v1",
+  "order": [
+    "live_reality",
+    "current_law",
+    "latest_cutover",
+    "active_implementation_test",
+    "history",
+    "model_report"
+  ],
+  "rule": "Higher-precedence evidence wins conflicts unless it is stale, invalid, or out of scope."
+}
