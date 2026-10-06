@@ -1,4 +1,3 @@
-\
 from realityfirst_mcp.claims import classify_claim
 from realityfirst_mcp.compaction import compact_evidence, record_loss
 from realityfirst_mcp.evidence import (

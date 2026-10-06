@@ -1,4 +1,3 @@
-\
 # RealityFirst MCP
 
 A small MCP behavior layer for coding agents that should **verify reality instead of trusting their own completion claims**.
