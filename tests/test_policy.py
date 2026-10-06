@@ -3,6 +3,7 @@ from realityfirst_mcp.compaction import compact_evidence, record_loss
 from realityfirst_mcp.evidence import (
     check_completion_evidence,
     resolve_precedence,
+    validate_evidence,
 )
 from realityfirst_mcp.policy import replay_gate
 
@@ -18,12 +19,78 @@ def test_placeholder_file_write_claim_fails_without_readback():
     assert result["verdict"] == "FAIL"
 
 
-def test_file_write_passes_with_readback():
+def test_file_write_readback_alone_is_not_enough():
     result = check_completion_evidence(
         "file_written",
         [{"type": "readback", "valid": True, "ref": "file://summary.json"}],
     )
+    assert result["verdict"] == "FAIL"
+    assert ["artifact_stat", "hash"] in result["missing_requirement_groups"]
+
+
+def test_fake_hash_label_cannot_satisfy_hash_gate():
+    result = check_completion_evidence(
+        "file_written",
+        [
+            {"type": "readback", "valid": True, "ref": "file://summary.json"},
+            {
+                "type": "hash",
+                "valid": True,
+                "ref": "file://summary.json",
+                "algorithm": "json_parse",
+                "digest": "success",
+            },
+        ],
+    )
+    assert result["verdict"] == "FAIL"
+    assert result["rejected_evidence"][0]["type"] == "hash"
+    assert ["artifact_stat", "hash"] in result["missing_requirement_groups"]
+
+
+def test_file_write_passes_with_real_sha256():
+    result = check_completion_evidence(
+        "file_written",
+        [
+            {"type": "readback", "valid": True, "ref": "file://summary.json"},
+            {
+                "type": "hash",
+                "valid": True,
+                "ref": "file://summary.json",
+                "algorithm": "sha256",
+                "digest": "a" * 64,
+            },
+        ],
+    )
     assert result["verdict"] == "PASS"
+
+
+def test_file_write_passes_with_structured_artifact_stat():
+    result = check_completion_evidence(
+        "file_written",
+        [
+            {"type": "readback", "valid": True, "ref": "file://summary.json"},
+            {
+                "type": "artifact_stat",
+                "valid": True,
+                "path": "C:/tmp/summary.json",
+                "size_bytes": 535,
+                "mtime": "2026-10-06T20:58:19Z",
+            },
+        ],
+    )
+    assert result["verdict"] == "PASS"
+
+
+def test_artifact_stat_without_mtime_is_rejected():
+    checked = validate_evidence([
+        {
+            "type": "artifact_stat",
+            "path": "C:/tmp/summary.json",
+            "size_bytes": 535,
+        }
+    ])
+    assert checked["invalid_count"] == 1
+    assert "artifact_stat requires mtime/modified_at" in checked["items"][0]["reasons"]
 
 
 def test_tests_pass_with_terminal_receipt():
