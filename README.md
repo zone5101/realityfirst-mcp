@@ -60,7 +60,8 @@ REPLACE
 
 - `classify_claim` — classify a claim and return its evidence gate
 - `build_verification_plan` — suggest the smallest independent verification plan
-- `check_completion_evidence` — PASS/FAIL/UNKNOWN for supplied evidence
+- `check_completion_evidence` — PASS/FAIL/UNKNOWN for supplied evidence; labels are structurally validated
+- `validate_evidence` — reject fake hash/stat/readback labels that lack real payload structure
 - `resolve_precedence` — resolve current-vs-history conflicts
 - `check_replay_safety` — block blind replay on unresolved side effects
 - `compact_evidence` — keep decisive evidence without losing source refs
@@ -193,7 +194,7 @@ Test case zero is the failure that motivated the project: an agent reports that 
 
 ## Status
 
-`0.1.0` — alpha.
+`0.1.1` — alpha.
 
 The first release intentionally stays small: claim classification, evidence gates, current-state precedence, replay safety, compaction, and reusable MCP prompts/resources.
 
