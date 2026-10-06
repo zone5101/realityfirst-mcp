@@ -11,6 +11,7 @@ from .evidence import (
     build_verification_plan as _build_verification_plan,
     check_completion_evidence as _check_completion_evidence,
     resolve_precedence as _resolve_precedence,
+    validate_evidence as _validate_evidence,
 )
 from .policy import load_policy, replay_gate as _replay_gate
 
@@ -41,6 +42,12 @@ def check_completion_evidence(
 ) -> dict[str, Any]:
     """Check whether a completion/current-state claim has enough independent evidence."""
     return _check_completion_evidence(claim_type, evidence)
+
+
+@mcp.tool()
+def validate_evidence(evidence: list[dict[str, Any]]) -> dict[str, Any]:
+    """Validate evidence payload structure before it can satisfy a completion gate."""
+    return _validate_evidence(evidence)
 
 
 @mcp.tool()
