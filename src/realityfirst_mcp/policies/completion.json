@@ -1,27 +1,83 @@
 {
-  "schema": "realityfirst.completion-gates.v1",
+  "schema": "realityfirst.completion-gates.v2",
+  "semantics": "AND across requirement_groups; OR within each group. Evidence labels must pass structural validation before they count.",
   "gates": {
     "file_written": [
-      "readback",
-      "hash_or_stat"
+      [
+        "readback"
+      ],
+      [
+        "hash",
+        "artifact_stat"
+      ]
     ],
     "file_deleted": [
-      "absence_check"
+      [
+        "absence_check"
+      ]
     ],
     "build_completed": [
-      "terminal_receipt",
-      "artifact_stat"
+      [
+        "terminal_receipt"
+      ],
+      [
+        "artifact_stat"
+      ]
     ],
     "tests_passed": [
-      "test_receipt_or_terminal_receipt"
+      [
+        "test_receipt",
+        "terminal_receipt"
+      ]
     ],
     "deployment_completed": [
-      "runtime_probe",
-      "terminal_receipt"
+      [
+        "runtime_probe"
+      ],
+      [
+        "terminal_receipt"
+      ]
     ],
     "runtime_changed": [
-      "runtime_probe"
+      [
+        "runtime_probe"
+      ]
     ]
   },
-  "rule": "A model report is candidate evidence, never sufficient completion proof by itself."
+  "evidence_shapes": {
+    "readback": {
+      "required_any_ref": [
+        "ref",
+        "path",
+        "uri",
+        "source_ref",
+        "tool_ref"
+      ]
+    },
+    "hash": {
+      "required": [
+        "algorithm",
+        "digest"
+      ],
+      "required_any_ref": [
+        "ref",
+        "path",
+        "uri"
+      ]
+    },
+    "artifact_stat": {
+      "required": [
+        "path_or_ref",
+        "size_bytes_or_size",
+        "mtime_or_modified_at"
+      ]
+    },
+    "absence_check": {
+      "required": [
+        "target_ref_or_path",
+        "exists=false"
+      ]
+    }
+  },
+  "rule": "A model-supplied evidence type label is never sufficient by itself; payload structure must validate."
 }
