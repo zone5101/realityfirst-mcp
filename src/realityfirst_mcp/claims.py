@@ -18,14 +18,56 @@ _PATTERNS: list[tuple[ClaimType, tuple[str, ...]]] = [
 ]
 
 
+CLAIM_TYPE_ALIASES: dict[str, ClaimType] = {
+    "completion": ClaimType.GENERIC_COMPLETION,
+    "complete": ClaimType.GENERIC_COMPLETION,
+    "current": ClaimType.CURRENT_STATE,
+    "state": ClaimType.CURRENT_STATE,
+    "write": ClaimType.FILE_WRITTEN,
+    "written": ClaimType.FILE_WRITTEN,
+    "created": ClaimType.FILE_WRITTEN,
+    "delete": ClaimType.FILE_DELETED,
+    "deleted": ClaimType.FILE_DELETED,
+    "build": ClaimType.BUILD_COMPLETED,
+    "built": ClaimType.BUILD_COMPLETED,
+    "test": ClaimType.TESTS_PASSED,
+    "tests": ClaimType.TESTS_PASSED,
+    "passed": ClaimType.TESTS_PASSED,
+    "deploy": ClaimType.DEPLOYMENT_COMPLETED,
+    "deployed": ClaimType.DEPLOYMENT_COMPLETED,
+    "restart": ClaimType.RUNTIME_CHANGED,
+    "restarted": ClaimType.RUNTIME_CHANGED,
+    "observe": ClaimType.OBSERVATION,
+    "observation": ClaimType.OBSERVATION,
+    "unknown": ClaimType.UNKNOWN,
+}
+
+
+def resolve_claim_type(value: str) -> ClaimType | None:
+    """Resolve a caller-supplied claim type with tolerant aliases; None if unrecognized."""
+    raw = str(value or "").strip()
+    try:
+        return ClaimType(raw)
+    except ValueError:
+        pass
+    key = raw.lower().replace("-", "_").replace(" ", "_")
+    try:
+        return ClaimType(key)
+    except ValueError:
+        pass
+    return CLAIM_TYPE_ALIASES.get(key)
+
+
 def classify_claim(claim: str, explicit_type: str | None = None) -> dict[str, Any]:
-    if explicit_type:
-        try:
-            claim_type = ClaimType(explicit_type)
-        except ValueError as exc:
-            raise ValueError(f"unknown claim_type: {explicit_type}") from exc
+    resolved = resolve_claim_type(explicit_type) if explicit_type else None
+    if resolved is not None:
+        claim_type = resolved
         confidence = 1.0
         matched = ["explicit_type"]
+        try:
+            ClaimType(str(explicit_type).strip())
+        except ValueError:
+            matched = [f"explicit_type_alias:{explicit_type}"]
     else:
         lowered = re.sub(r"\s+", " ", claim.lower()).strip()
         claim_type = ClaimType.UNKNOWN

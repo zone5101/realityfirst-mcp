@@ -117,10 +117,16 @@ def check_completion_evidence(
     claim_type: str,
     evidence: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    try:
-        parsed_type = ClaimType(claim_type)
-    except ValueError as exc:
-        raise ValueError(f"unknown claim_type: {claim_type}") from exc
+    from .claims import resolve_claim_type
+
+    parsed_type = resolve_claim_type(claim_type) if claim_type else None
+    if parsed_type is None:
+        # Unknown claim_type: degrade gracefully to the generic completion gate
+        # instead of crashing the tool with an unhandled ValueError.
+        parsed_type = ClaimType.GENERIC_COMPLETION
+        type_note = f"unknown claim_type '{claim_type}' resolved to generic_completion"
+    else:
+        type_note = ""
 
     validations = [validate_evidence_item(item) for item in evidence]
     valid = [
@@ -156,6 +162,7 @@ def check_completion_evidence(
         "verdict": verdict,
         "reason": reason,
         "claim_type": parsed_type.value,
+        "type_note": type_note,
         "present_evidence_types": sorted(present),
         "matched_requirement_groups": matched_groups,
         "missing_requirement_groups": missing,
