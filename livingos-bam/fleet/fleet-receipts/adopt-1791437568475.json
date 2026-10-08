@@ -1,0 +1,13 @@
+{
+  "schema": "livingos.chrome-fleet-receipt.v1",
+  "kind": "adopt",
+  "at": "2026-10-08T05:32:48.475747Z",
+  "adopted": [
+    "acc02",
+    "acc03",
+    "acc04",
+    "acc05"
+  ],
+  "coupled_to_bam": false,
+  "owner_identity": "78224@1791437538.100"
+}

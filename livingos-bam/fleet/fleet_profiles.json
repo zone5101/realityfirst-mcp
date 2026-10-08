@@ -1,0 +1,14 @@
+{
+  "schema": "livingos.chrome-fleet-profiles.v1",
+  "note": "Profiles owned by the Chrome fleet owner (LivingOS-Chrome-Profile-Fleet) that are NOT part of the ChatGPT account registry. BAM consumes bamruntime as a CDP client only.",
+  "profiles": [
+    {
+      "id": "bamruntime",
+      "user_data_dir": "G:\\LivingOS\\_ACTIVE_WORK_20260905\\Black Armor\\rock_man_executor_phase2_stage\\_state\\bam\\chrome_stable_profile",
+      "cdp_port": 9223,
+      "role": "utility",
+      "display_name": "BAM Runtime endpoint (fleet-owned; BAM is a client)",
+      "default_url": "about:blank"
+    }
+  ]
+}

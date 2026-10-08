@@ -1,0 +1,6 @@
+{
+  "schema": "livingos.chrome-fleet-receipt.v1",
+  "kind": "owner-start",
+  "at": "2026-10-08T05:48:23.000719Z",
+  "control_port": 9411
+}

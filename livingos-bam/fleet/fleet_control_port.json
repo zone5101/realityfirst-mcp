@@ -1,0 +1,7 @@
+{
+  "schema": "livingos.chrome-fleet-control.v1",
+  "control_port": 9411,
+  "owner_pid": 61344,
+  "owner_create_time": 1791439152.327692,
+  "at": "2026-10-08T05:59:13.247395Z"
+}

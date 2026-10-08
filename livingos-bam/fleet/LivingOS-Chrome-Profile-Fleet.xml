@@ -1,0 +1,41 @@
+<Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>LivingOS Chrome profile fleet owner: sole lifecycle owner of the managed AgentBus Chrome profiles (acc01..acc12). BAM (workbench + MCP) is a CDP client only and must never spawn, reparent, hide or kill Chrome.</Description>
+    <URI>\LivingOS-Chrome-Profile-Fleet</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-21-2581045244-1966194565-327955926-1001</UserId>
+      <LogonType>InteractiveToken</LogonType>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <RestartOnFailure>
+      <Count>3</Count>
+      <Interval>PT1M</Interval>
+    </RestartOnFailure>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>false</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+  </Settings>
+  <Triggers>
+    <LogonTrigger>
+      <UserId>DESKTOP-9SFNOP9\Z One</UserId>
+    </LogonTrigger>
+  </Triggers>
+  <Actions Context="Author">
+    <Exec>
+      <Command>C:\Users\Z One\AppData\Local\Programs\Python\Python313\pythonw.exe</Command>
+      <Arguments>-X utf8 -B "G:\LivingOS\_ACTIVE_WORK_20260905\Black Armor\rock_man_executor_phase2_stage\rock_man_executor\chrome_fleet_supervisor.py"</Arguments>
+      <WorkingDirectory>G:\AgentBusProfiles\fleet</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>

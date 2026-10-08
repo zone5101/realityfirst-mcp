@@ -1,0 +1,78 @@
+{
+  "schema": "livingos.chrome-separation-acceptance.v1",
+  "observed_at": "2026-10-08T06:17:09.646153Z",
+  "workbench_pids": [
+    78240
+  ],
+  "fleet_owner_pid": 61344,
+  "control_port": 9411,
+  "coupled_to_bam": false,
+  "live_count": 5,
+  "bam_mcp_8766_listening": true,
+  "chrome": [
+    {
+      "profile": "acc02",
+      "pid": 23768,
+      "alive": true,
+      "cdp_live": true,
+      "hwnd": 11933552,
+      "window_parent": 0
+    },
+    {
+      "profile": "acc03",
+      "pid": 35736,
+      "alive": true,
+      "cdp_live": true,
+      "hwnd": 5637232,
+      "window_parent": 0
+    },
+    {
+      "profile": "acc04",
+      "pid": 48036,
+      "alive": true,
+      "cdp_live": true,
+      "hwnd": 12192064,
+      "window_parent": 0
+    },
+    {
+      "profile": "acc05",
+      "pid": 15856,
+      "alive": true,
+      "cdp_live": true,
+      "hwnd": 18417526,
+      "window_parent": 0
+    },
+    {
+      "profile": "bamruntime",
+      "pid": 22900,
+      "alive": true,
+      "cdp_live": true,
+      "hwnd": 14488350,
+      "window_parent": 0
+    }
+  ],
+  "before_old_code": {
+    "workbench_pid": 10132,
+    "terminated": true,
+    "chrome_killed": [
+      70040,
+      65848,
+      66380,
+      81728
+    ],
+    "cdp_down": [
+      9324,
+      9325,
+      9326,
+      9327
+    ]
+  },
+  "survived_workbench_restarts": [
+    53632,
+    78240
+  ],
+  "verdict_chrome_survived_restart": true,
+  "verdict_no_window_ownership": true,
+  "verdict_bam_cdp_client_only": true,
+  "overall": "PASS"
+}

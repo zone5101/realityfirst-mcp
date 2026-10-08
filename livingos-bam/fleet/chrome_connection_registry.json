@@ -1,0 +1,14 @@
+{
+  "schema": "livingos.chrome-fleet-connections.v1",
+  "moved_from": "C:\\Users\\Z One\\AppData\\Local\\LivingOS\\state\\bam\\mcp_control\\connection_registry.json",
+  "moved_at": "2026-10-08",
+  "reason": "Separation: ChatGPT web sessions are Chrome/CDP connections, not BAM MCP connections. BAM MCP must not present them as its own clients.",
+  "connections": [
+    {"connection_id": "a1", "owner": "chatgpt_web_acc01", "port": 8800, "registered_at": "2026-09-11T03:09:00+07:00", "state": "ACTIVE", "runtime": "chrome_fleet", "profile": "acc01", "cdp_port": 9323},
+    {"connection_id": "a2", "owner": "chatgpt_web_acc02", "port": 8801, "registered_at": "2026-09-11T03:09:00+07:00", "state": "ACTIVE", "runtime": "chrome_fleet", "profile": "acc02", "cdp_port": 9324},
+    {"connection_id": "a3", "owner": "chatgpt_web_acc03", "port": 8802, "registered_at": "2026-09-11T03:09:00+07:00", "state": "ACTIVE", "runtime": "chrome_fleet", "profile": "acc03", "cdp_port": 9325},
+    {"connection_id": "a4", "owner": "chatgpt_web_acc04", "port": 8803, "registered_at": "2026-09-11T03:09:00+07:00", "state": "ACTIVE", "runtime": "chrome_fleet", "profile": "acc04", "cdp_port": 9326},
+    {"connection_id": "a5", "owner": "chatgpt_web_acc05", "port": 8804, "registered_at": "2026-09-11T03:09:00+07:00", "state": "ACTIVE", "runtime": "chrome_fleet", "profile": "acc05", "cdp_port": 9327},
+    {"connection_id": "manager", "owner": "chatgpt-manager", "port": 8805, "registered_at": "2026-09-11T03:09:00+07:00", "state": "ACTIVE", "runtime": "chrome_fleet"}
+  ]
+}
